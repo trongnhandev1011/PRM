@@ -38,7 +38,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        System.out.println((games.get(position)));
+        System.out.println((games.get(position).getName()));
         viewHolder.tvGameName.setText(games.get(position).getName());
         viewHolder.tvGameDescription.setText(String.valueOf(games.get(position).getDescription()));
         new ImageUtils(viewHolder.gameImg)
