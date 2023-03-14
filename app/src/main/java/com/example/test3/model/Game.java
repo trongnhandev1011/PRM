@@ -1,7 +1,9 @@
 package com.example.test3.model;
 
-public class Game {
-    private String id;
+import java.io.Serializable;
+
+public class Game implements Serializable {
+    private int id;
     private String name;
     private String description;
     private String category;
@@ -12,7 +14,7 @@ public class Game {
     public Game() {
     }
 
-    public Game(String id, String name, String description, String category, String imageUrl, int price, int amount ) {
+    public Game(int id, String name, String description, String category, String imageUrl, int price, int amount ) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -22,7 +24,7 @@ public class Game {
         this.amount = amount;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -50,7 +52,7 @@ public class Game {
         this.amount = amount;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
