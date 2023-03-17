@@ -57,6 +57,12 @@ public class Home_Activity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        String role = sharedpreferences.getString("Role", "User");
+        if (role.equals("Admin")) {
+            menu.findItem(R.id.menu_cart).setVisible(false);
+        } else {
+            menu.findItem(R.id.menu_create).setVisible(false);
+        }
         return true;
     }
 
@@ -69,6 +75,9 @@ public class Home_Activity extends AppCompatActivity {
                 return true;
             case R.id.menu_create:
                 onCreate();
+                return true;
+            case R.id.menu_cart:
+                onCart();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -85,11 +94,21 @@ public class Home_Activity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onCart() {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
+    }
+
     public void itemClickHandler(int position) {
         Game game = games.get(position);
         String role = sharedpreferences.getString("Role", "User");
+        System.out.println(role);
         Intent intent;
-        intent = new Intent(this, role == "Admin" ? DetailActivity.class : DetailUserActivity.class);
+        if (role.equals("Admin")) {
+            intent = new Intent(this, DetailActivity.class);
+        } else {
+            intent = new Intent(this, DetailUserActivity.class);
+        }
         intent.putExtra("game", game);
         startActivity(intent);
     }

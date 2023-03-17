@@ -5,6 +5,7 @@
     <item
         android:id="@+id/menu_create"
         android:title="Create" />
+    <item android:id="@+id/menu_cart" android:title="Cart" />
     <item
         android:id="@+id/menu_logout"
         android:title="Logout" />

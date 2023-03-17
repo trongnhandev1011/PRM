@@ -1,6 +1,8 @@
 package com.example.test3.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,14 +15,17 @@ import com.example.test3.R;
 import com.example.test3.adapter.CartAdapter;
 import com.example.test3.utils.RecyclerItemClickListener;
 
-public class CartActivity extends AppCompatActivity {
+public class BillingActivity extends AppCompatActivity {
     RecyclerView cartList;
     CartAdapter cartAdapter;
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
+        setContentView(R.layout.activity_bill);
+
+        sharedpreferences = getSharedPreferences(MainActivity.SESSION, Context.MODE_PRIVATE);
 
         cartList = findViewById(R.id.cartList);
         cartList.addOnItemTouchListener(
@@ -34,20 +39,21 @@ public class CartActivity extends AppCompatActivity {
                     }
                 })
         );
-        cartAdapter = new CartAdapter(CartActivity.this);
-        TextView cartTotal = findViewById(R.id.cartTotal);
+        cartAdapter = new CartAdapter(BillingActivity.this);
+        TextView cartTotal = findViewById(R.id.billTotal);
+        TextView billDate = findViewById(R.id.billDate);
+        TextView billCustomer = findViewById(R.id.billCustomer);
+        String email = sharedpreferences.getString("Email", "@gmail.com");
+
         cartTotal.setText(cartAdapter.getCartTotal().toString());
+        billDate.setText(android.text.format.DateFormat.format("dd-MM-yyyy", new java.util.Date()));
+        billCustomer.setText(email);
         cartList.setAdapter(cartAdapter);
         cartList.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void cartBackHandler (View view) {
         Intent intent = new Intent(this, Home_Activity.class );
-        startActivity(intent);
-    }
-
-    public void checkoutHandler (View view) {
-        Intent intent = new Intent(this, BillingActivity.class );
         startActivity(intent);
     }
 }
